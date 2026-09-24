@@ -351,6 +351,17 @@
           flex-direction: column;
         }
       }
+      /* Validation 상태 */
+      input.invalid,
+      select.invalid {
+        border-color: #c0392b;
+        background-color: #fdf3f2;
+      }
+
+      input.invalid:focus,
+      select.invalid:focus {
+        box-shadow: 0 0 0 3px #f6d5d1;
+      }
     </style>
   </head>
   <body>
@@ -369,42 +380,41 @@
     </header>
 
     <main>
-      <form id="userForm" action="#" method="post">
+      <form id="userForm" action="#" method="post" novalidate>
         <!-- 1. 청구 정보 -->
         <fieldset>
           <legend>Billing address</legend>
 
           <p class="half">
             <label for="firstName">First name</label><br />
-            <input type="text" id="firstName" name="firstName" placeholder="길동" />
+            <input type="text" id="firstName" name="firstName" placeholder="길동" required />
           </p>
 
           <p class="half">
             <label for="lastName">Last name</label><br />
-            <input type="text" id="lastName" name="lastName" placeholder="홍" />
+            <input type="text" id="lastName" name="lastName" placeholder="홍" required />
           </p>
 
           <p>
             <label for="username">Username</label><br />
             <span class="input-group">
-              <span class="prefix">@</span><input type="text" id="username" name="username" placeholder="Username" />
+              <span class="prefix">@</span><input type="text" id="username" name="username" placeholder="3자 이상" minlength="3" required />
             </span>
           </p>
 
           <p class="half">
-            <label for="email">Email <small>(Optional)</small></label
-            ><br />
-            <input type="email" id="email" name="email" placeholder="you@example.com" />
+            <label for="email">Email</label><br />
+            <input type="email" id="email" name="email" placeholder="you@example.com" required />
           </p>
 
           <p class="half">
             <label for="password">Password</label><br />
-            <input type="password" id="password" name="password" placeholder="6자 이상" />
+            <input type="password" id="password" name="password" placeholder="6자 이상" minlength="6" required />
           </p>
 
           <p>
             <label for="address">Address</label><br />
-            <input type="text" id="address" name="address" placeholder="1234 Main St" />
+            <input type="text" id="address" name="address" placeholder="1234 Main St" required />
           </p>
 
           <p>
@@ -415,7 +425,7 @@
 
           <p class="third">
             <label for="country">Country</label><br />
-            <select id="country" name="country">
+            <select id="country" name="country" required>
               <option value="">Choose...</option>
               <optgroup label="Asia">
                 <option value="KR">South Korea</option>
@@ -447,7 +457,7 @@
 
           <p class="third">
             <label for="zip">Zip</label><br />
-            <input type="text" id="zip" name="zip" placeholder="12345" />
+            <input type="text" id="zip" name="zip" placeholder="12345" required />
           </p>
         </fieldset>
 
@@ -531,5 +541,52 @@
     <footer>
       <p><a href="index.html">← 메인으로</a></p>
     </footer>
+
+    <script>
+      const form = document.querySelector("#userForm");
+
+      // 검사할 항목과 오류 메시지
+      const fields = [
+        { el: document.querySelector("#firstName"), message: "First name을 입력하세요." },
+        { el: document.querySelector("#lastName"), message: "Last name을 입력하세요." },
+        { el: document.querySelector("#username"), message: "Username을 3자 이상 입력하세요." },
+        { el: document.querySelector("#email"), message: "유효한 이메일을 입력하세요." },
+        { el: document.querySelector("#password"), message: "비밀번호를 6자 이상 입력하세요." },
+        { el: document.querySelector("#address"), message: "Address를 입력하세요." },
+        { el: document.querySelector("#country"), message: "Country를 선택하세요." },
+        { el: document.querySelector("#zip"), message: "Zip을 입력하세요." },
+      ];
+
+      form.addEventListener("submit", function (event) {
+        event.preventDefault(); // 기본 제출 동작 차단
+
+        for (const field of fields) {
+          if (!field.el.checkValidity()) {
+            field.el.classList.add("invalid");
+            alert(field.message);
+            field.el.focus();
+            return; // 유효하지 않으면 함수 종료
+          }
+        }
+
+        alert("등록이 완료되었습니다.");
+      });
+
+      // 값을 고치면 오류 표시 제거
+      for (const field of fields) {
+        field.el.addEventListener("input", function () {
+          if (field.el.checkValidity()) {
+            field.el.classList.remove("invalid");
+          }
+        });
+      }
+
+      // Reset 시 오류 표시 제거
+      form.addEventListener("reset", function () {
+        for (const field of fields) {
+          field.el.classList.remove("invalid");
+        }
+      });
+    </script>
   </body>
 </html>
