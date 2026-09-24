@@ -1,0 +1,518 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Checkout Form</title>
+    <style>
+      :root {
+        --bg: #f4f1ea;
+        --card: #fffdf8;
+        --ink: #23241f;
+        --muted: #6f6c63;
+        --line: #d9d3c5;
+        --accent: #1f6f5c;
+        --accent-dark: #17564a;
+        --accent-soft: #e2efe9;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 48px 16px;
+        background-color: var(--bg);
+        color: var(--ink);
+        font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", "Segoe UI", sans-serif;
+        line-height: 1.5;
+      }
+
+      /* 헤더 */
+      header,
+      main,
+      footer {
+        width: 100%;
+        max-width: 760px;
+        margin: 0 auto;
+      }
+
+      header h1 {
+        margin: 0 0 24px;
+        font-size: 2rem;
+        letter-spacing: -0.02em;
+      }
+
+      header h1::after {
+        content: "";
+        display: block;
+        width: 48px;
+        height: 4px;
+        margin-top: 12px;
+        border-radius: 2px;
+        background-color: var(--accent);
+      }
+
+      /* Form 영역 */
+      form {
+        padding: 32px;
+        background-color: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(35, 36, 31, 0.06);
+      }
+
+      fieldset {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        column-gap: 16px;
+        margin: 0 0 28px;
+        padding: 20px 0 0;
+        border: none;
+        border-top: 1px solid var(--line);
+        min-width: 0;
+      }
+
+      legend {
+        padding: 0 12px 0 0;
+        color: var(--accent);
+        font-size: 0.8rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      fieldset > p {
+        grid-column: span 6;
+        margin: 0 0 16px;
+      }
+
+      fieldset > p.half {
+        grid-column: span 3;
+      }
+
+      fieldset > p.third {
+        grid-column: span 2;
+      }
+
+      form br {
+        display: none;
+      }
+
+      /* Label */
+      label {
+        display: block;
+        margin-bottom: 6px;
+        color: var(--ink);
+        font-size: 0.9rem;
+        font-weight: 600;
+      }
+
+      label small,
+      fieldset small {
+        color: var(--muted);
+        font-weight: 400;
+      }
+
+      fieldset > p > small {
+        display: block;
+        margin-top: 4px;
+        font-size: 0.8rem;
+      }
+
+      /* Input / Select / Textarea */
+      input[type="text"],
+      input[type="email"],
+      input[type="password"],
+      input[type="date"],
+      select,
+      textarea {
+        display: block;
+        width: 100%;
+        padding: 10px 12px;
+        background-color: #fff;
+        color: var(--ink);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        font: inherit;
+        transition:
+          border-color 0.15s,
+          box-shadow 0.15s;
+      }
+
+      select {
+        height: 46px;
+      }
+
+      textarea {
+        resize: vertical;
+        min-height: 96px;
+      }
+
+      input::placeholder,
+      textarea::placeholder {
+        color: #aaa597;
+      }
+
+      input:hover,
+      select:hover,
+      textarea:hover {
+        border-color: #b9b19f;
+      }
+
+      input:focus,
+      select:focus,
+      textarea:focus {
+        outline: none;
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px var(--accent-soft);
+      }
+
+      /* Username 앞 @ 표시 */
+      .input-group {
+        display: flex;
+      }
+
+      .input-group .prefix {
+        display: flex;
+        align-items: center;
+        padding: 0 12px;
+        background-color: var(--accent-soft);
+        color: var(--accent);
+        border: 1px solid var(--line);
+        border-right: none;
+        border-radius: 8px 0 0 8px;
+        font-weight: 700;
+      }
+
+      .input-group input {
+        border-radius: 0 8px 8px 0;
+      }
+
+      /* Checkbox */
+      p.check {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      p.check label {
+        margin: 0;
+        font-weight: 400;
+        cursor: pointer;
+      }
+
+      input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+        margin: 0;
+        accent-color: var(--accent);
+        cursor: pointer;
+      }
+
+      /* Color */
+      input[type="color"] {
+        display: block;
+        width: 64px;
+        height: 42px;
+        padding: 4px;
+        background-color: #fff;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        cursor: pointer;
+      }
+
+      /* Radio: 선택 버튼 형태 */
+      p.radio-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      input[type="radio"] {
+        position: absolute;
+        opacity: 0;
+      }
+
+      input[type="radio"] + label {
+        display: inline-block;
+        margin: 0;
+        padding: 8px 16px;
+        background-color: #fff;
+        color: var(--muted);
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        font-weight: 500;
+        cursor: pointer;
+      }
+
+      input[type="radio"] + label:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+
+      input[type="radio"]:checked + label {
+        background-color: var(--accent);
+        color: #fff;
+        border-color: var(--accent);
+      }
+
+      input[type="radio"]:focus-visible + label {
+        box-shadow: 0 0 0 3px var(--accent-soft);
+      }
+
+      /* Button */
+      p.actions {
+        display: flex;
+        gap: 12px;
+        margin: 8px 0 0;
+      }
+
+      button {
+        padding: 12px 24px;
+        border: 1px solid var(--accent);
+        border-radius: 8px;
+        font: inherit;
+        font-weight: 600;
+        cursor: pointer;
+        transition:
+          background-color 0.15s,
+          transform 0.1s;
+      }
+
+      button[type="submit"] {
+        flex: 1;
+        background-color: var(--accent);
+        color: #fff;
+      }
+
+      button[type="submit"]:hover {
+        background-color: var(--accent-dark);
+      }
+
+      button[type="reset"] {
+        background-color: transparent;
+        color: var(--accent);
+      }
+
+      button[type="reset"]:hover {
+        background-color: var(--accent-soft);
+      }
+
+      button:active {
+        transform: translateY(1px);
+      }
+
+      button:focus-visible {
+        outline: none;
+        box-shadow: 0 0 0 3px var(--accent-soft);
+      }
+
+      /* Footer */
+      footer a {
+        display: inline-block;
+        margin-top: 20px;
+        color: var(--accent);
+        text-decoration: none;
+      }
+
+      footer a:hover {
+        text-decoration: underline;
+      }
+
+      /* 좁은 화면 */
+      @media (max-width: 600px) {
+        body {
+          padding: 24px 16px;
+        }
+
+        form {
+          padding: 20px;
+        }
+
+        fieldset > p.half,
+        fieldset > p.third {
+          grid-column: span 6;
+        }
+
+        p.actions {
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!--
+      Clone Coding 원본: https://getbootstrap.com/docs/5.2/examples/checkout/
+      (Bootstrap 5.2 Checkout 예제의 Form 구조를 참고하여 작성)
+    -->
+    <header>
+      <h1>Checkout form</h1>
+    </header>
+
+    <main>
+      <form id="userForm" action="#" method="post">
+        <!-- 1. 청구 정보 -->
+        <fieldset>
+          <legend>Billing address</legend>
+
+          <p class="half">
+            <label for="firstName">First name</label><br />
+            <input type="text" id="firstName" name="firstName" placeholder="길동" />
+          </p>
+
+          <p class="half">
+            <label for="lastName">Last name</label><br />
+            <input type="text" id="lastName" name="lastName" placeholder="홍" />
+          </p>
+
+          <p>
+            <label for="username">Username</label><br />
+            <span class="input-group">
+              <span class="prefix">@</span><input type="text" id="username" name="username" placeholder="Username" />
+            </span>
+          </p>
+
+          <p class="half">
+            <label for="email">Email <small>(Optional)</small></label
+            ><br />
+            <input type="email" id="email" name="email" placeholder="you@example.com" />
+          </p>
+
+          <p class="half">
+            <label for="password">Password</label><br />
+            <input type="password" id="password" name="password" placeholder="6자 이상" />
+          </p>
+
+          <p>
+            <label for="address">Address</label><br />
+            <input type="text" id="address" name="address" placeholder="1234 Main St" />
+          </p>
+
+          <p>
+            <label for="address2">Address 2 <small>(Optional)</small></label
+            ><br />
+            <input type="text" id="address2" name="address2" placeholder="Apartment or suite" />
+          </p>
+
+          <p class="third">
+            <label for="country">Country</label><br />
+            <select id="country" name="country">
+              <option value="">Choose...</option>
+              <optgroup label="Asia">
+                <option value="KR">South Korea</option>
+                <option value="JP">Japan</option>
+                <option value="CN">China</option>
+              </optgroup>
+              <optgroup label="America">
+                <option value="US">United States</option>
+                <option value="CA">Canada</option>
+              </optgroup>
+              <optgroup label="Europe">
+                <option value="UK">United Kingdom</option>
+                <option value="DE">Germany</option>
+              </optgroup>
+            </select>
+          </p>
+
+          <p class="third">
+            <label for="state">State / City</label><br />
+            <input type="text" id="state" name="state" list="stateList" placeholder="입력 또는 선택" />
+            <datalist id="stateList">
+              <option value="Seoul"></option>
+              <option value="Busan"></option>
+              <option value="Pohang"></option>
+              <option value="California"></option>
+              <option value="New York"></option>
+            </datalist>
+          </p>
+
+          <p class="third">
+            <label for="zip">Zip</label><br />
+            <input type="text" id="zip" name="zip" placeholder="12345" />
+          </p>
+        </fieldset>
+
+        <!-- 2. 추가 옵션 -->
+        <fieldset>
+          <legend>Options</legend>
+
+          <p class="check">
+            <input type="checkbox" id="sameAddress" name="sameAddress" />
+            <label for="sameAddress">Shipping address is the same as my billing address</label>
+          </p>
+
+          <p class="check">
+            <input type="checkbox" id="saveInfo" name="saveInfo" />
+            <label for="saveInfo">Save this information for next time</label>
+          </p>
+
+          <p class="half">
+            <label for="deliveryDate">Delivery date</label><br />
+            <input type="date" id="deliveryDate" name="deliveryDate" />
+          </p>
+
+          <p class="half">
+            <label for="wrapColor">Gift wrap color</label><br />
+            <input type="color" id="wrapColor" name="wrapColor" value="#1f6f5c" />
+          </p>
+
+          <p>
+            <label for="message">Delivery request</label><br />
+            <textarea
+              id="message"
+              name="message"
+              rows="4"
+              cols="40"
+              placeholder="배송 시 요청사항을 입력하세요."></textarea>
+          </p>
+        </fieldset>
+
+        <!-- 3. 결제 정보 -->
+        <fieldset>
+          <legend>Payment</legend>
+
+          <p class="radio-group">
+            <input type="radio" id="credit" name="paymentMethod" value="credit" checked />
+            <label for="credit">Credit card</label>
+            <input type="radio" id="debit" name="paymentMethod" value="debit" />
+            <label for="debit">Debit card</label>
+            <input type="radio" id="paypal" name="paymentMethod" value="paypal" />
+            <label for="paypal">PayPal</label>
+          </p>
+
+          <p class="half">
+            <label for="ccName">Name on card</label><br />
+            <input type="text" id="ccName" name="ccName" />
+            <br /><small>Full name as displayed on card</small>
+          </p>
+
+          <p class="half">
+            <label for="ccNumber">Credit card number</label><br />
+            <input type="text" id="ccNumber" name="ccNumber" />
+          </p>
+
+          <p class="half">
+            <label for="ccExpiration">Expiration</label><br />
+            <input type="text" id="ccExpiration" name="ccExpiration" placeholder="MM/YY" />
+          </p>
+
+          <p class="half">
+            <label for="ccCvv">CVV</label><br />
+            <input type="text" id="ccCvv" name="ccCvv" />
+          </p>
+        </fieldset>
+
+        <p class="actions">
+          <button type="submit">Continue to checkout</button>
+          <button type="reset">Reset</button>
+        </p>
+      </form>
+    </main>
+
+    <footer>
+      <p><a href="index.html">← 메인으로</a></p>
+    </footer>
+  </body>
+</html>
