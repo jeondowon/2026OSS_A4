@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form id="userForm">
+      <input type="text" name="username" placeholder="Username" required />
+      <input type="submit" value="전송" />
+    </form>
+  </body>
+</html>
+
+<script>
+  const form = document.querySelector("#userForm");
+  form.addEventListener("submit", function (event) {
+    event.preventDefault(); // Prevent the default form submission behavior
+    const username = form.username.value; // Get the value of the username input
+    console.log("Submitted username:", username); // Log the submitted username to the console
+    alert("등록되었습니다!"); // Show an alert to indicate successful submission
+  });
+</script>
