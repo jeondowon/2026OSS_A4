@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Checkout Form</title>
+  </head>
+  <body>
+    <!--
+      Clone Coding 원본: https://getbootstrap.com/docs/5.2/examples/checkout/
+      (Bootstrap 5.2 Checkout 예제의 Form 구조를 참고하여 작성)
+    -->
+    <header>
+      <h1>Checkout form</h1>
+    </header>
+
+    <main>
+      <form id="userForm" action="#" method="post">
+        <!-- 1. 청구 정보 -->
+        <fieldset>
+          <legend>Billing address</legend>
+
+          <p>
+            <label for="firstName">First name</label><br />
+            <input type="text" id="firstName" name="firstName" placeholder="길동" />
+          </p>
+
+          <p>
+            <label for="lastName">Last name</label><br />
+            <input type="text" id="lastName" name="lastName" placeholder="홍" />
+          </p>
+
+          <p>
+            <label for="username">Username</label><br />
+            @<input type="text" id="username" name="username" placeholder="Username" />
+          </p>
+
+          <p>
+            <label for="email">Email <small>(Optional)</small></label
+            ><br />
+            <input type="email" id="email" name="email" placeholder="you@example.com" />
+          </p>
+
+          <p>
+            <label for="password">Password</label><br />
+            <input type="password" id="password" name="password" placeholder="6자 이상" />
+          </p>
+
+          <p>
+            <label for="address">Address</label><br />
+            <input type="text" id="address" name="address" placeholder="1234 Main St" />
+          </p>
+
+          <p>
+            <label for="address2">Address 2 <small>(Optional)</small></label
+            ><br />
+            <input type="text" id="address2" name="address2" placeholder="Apartment or suite" />
+          </p>
+
+          <p>
+            <label for="country">Country</label><br />
+            <select id="country" name="country">
+              <option value="">Choose...</option>
+              <optgroup label="Asia">
+                <option value="KR">South Korea</option>
+                <option value="JP">Japan</option>
+                <option value="CN">China</option>
+              </optgroup>
+              <optgroup label="America">
+                <option value="US">United States</option>
+                <option value="CA">Canada</option>
+              </optgroup>
+              <optgroup label="Europe">
+                <option value="UK">United Kingdom</option>
+                <option value="DE">Germany</option>
+              </optgroup>
+            </select>
+          </p>
+
+          <p>
+            <label for="state">State / City</label><br />
+            <input type="text" id="state" name="state" list="stateList" placeholder="입력 또는 선택" />
+            <datalist id="stateList">
+              <option value="Seoul"></option>
+              <option value="Busan"></option>
+              <option value="Pohang"></option>
+              <option value="California"></option>
+              <option value="New York"></option>
+            </datalist>
+          </p>
+
+          <p>
+            <label for="zip">Zip</label><br />
+            <input type="text" id="zip" name="zip" placeholder="12345" />
+          </p>
+        </fieldset>
+
+        <!-- 2. 추가 옵션 -->
+        <fieldset>
+          <legend>Options</legend>
+
+          <p>
+            <input type="checkbox" id="sameAddress" name="sameAddress" />
+            <label for="sameAddress">Shipping address is the same as my billing address</label>
+          </p>
+
+          <p>
+            <input type="checkbox" id="saveInfo" name="saveInfo" />
+            <label for="saveInfo">Save this information for next time</label>
+          </p>
+
+          <p>
+            <label for="deliveryDate">Delivery date</label><br />
+            <input type="date" id="deliveryDate" name="deliveryDate" />
+          </p>
+
+          <p>
+            <label for="wrapColor">Gift wrap color</label><br />
+            <input type="color" id="wrapColor" name="wrapColor" value="#0d6efd" />
+          </p>
+
+          <p>
+            <label for="message">Delivery request</label><br />
+            <textarea
+              id="message"
+              name="message"
+              rows="4"
+              cols="40"
+              placeholder="배송 시 요청사항을 입력하세요."></textarea>
+          </p>
+        </fieldset>
+
+        <!-- 3. 결제 정보 -->
+        <fieldset>
+          <legend>Payment</legend>
+
+          <p>
+            <input type="radio" id="credit" name="paymentMethod" value="credit" checked />
+            <label for="credit">Credit card</label>
+            <input type="radio" id="debit" name="paymentMethod" value="debit" />
+            <label for="debit">Debit card</label>
+            <input type="radio" id="paypal" name="paymentMethod" value="paypal" />
+            <label for="paypal">PayPal</label>
+          </p>
+
+          <p>
+            <label for="ccName">Name on card</label><br />
+            <input type="text" id="ccName" name="ccName" />
+            <br /><small>Full name as displayed on card</small>
+          </p>
+
+          <p>
+            <label for="ccNumber">Credit card number</label><br />
+            <input type="text" id="ccNumber" name="ccNumber" />
+          </p>
+
+          <p>
+            <label for="ccExpiration">Expiration</label><br />
+            <input type="text" id="ccExpiration" name="ccExpiration" placeholder="MM/YY" />
+          </p>
+
+          <p>
+            <label for="ccCvv">CVV</label><br />
+            <input type="text" id="ccCvv" name="ccCvv" />
+          </p>
+        </fieldset>
+
+        <p>
+          <button type="submit">Continue to checkout</button>
+          <button type="reset">Reset</button>
+        </p>
+      </form>
+    </main>
+
+    <footer>
+      <p><a href="index.html">← 메인으로</a></p>
+    </footer>
+  </body>
+</html>
